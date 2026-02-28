@@ -1,13 +1,16 @@
 import express from "express";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
+import { serve } from "inngest/express";
+import { inngest, functions } from "./lib/inngest.js";
+import cors from "cors";
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: "ENV_CLIENT_URL", credentials: true }));
+app.use("/api/inngest", serve({ client: inngest, functions }));
 app.get("/check", (req, res) => {
   res.send("Healthy");
-});
-app.listen(ENV.PORT || 5000, () => {
-  console.log("Server is running on port " + (process.env.PORT || 5000));
-  connectDB();
 });
 const startServer = async () => {
   try {
