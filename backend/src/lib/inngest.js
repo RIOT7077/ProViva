@@ -7,6 +7,7 @@ export const inngest = new Inngest({
   id: "ProViva",
   eventKey: process.env.INNGEST_EVENT_KEY,
   signingKey: process.env.INNGEST_SIGNING_KEY,
+  env: "production",
 });
 const syncUser = inngest.createFunction(
   { id: "sync-user" },
