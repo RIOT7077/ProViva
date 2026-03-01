@@ -23,6 +23,11 @@ const syncUser = inngest.createFunction(
         profileImage: image_url,
       };
       await User.create(newUser);
+      await upsertStreamUser({
+        id: newUser.clerkId.toString()  ,
+        name: newUser.name,
+        image: newUser.profileImage,
+      });
     } catch (error) {
       console.error("Error syncing user:", error);
     }
@@ -36,6 +41,7 @@ const deleteUserFromDb = inngest.createFunction(
     try {
       await connectDB();
       await User.deleteOne({ clerkId: id });
+      await deleteStreamUser(id.toString());
     } catch (error) {
       console.error("Error deleting user:", error);
     }
