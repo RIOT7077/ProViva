@@ -6,9 +6,12 @@ import { serve } from "inngest/express";
 import { inngest, functions } from "./lib/inngest.js";
 import { clerkMiddleware } from "@clerk/express";
 import chatRoutes from "./routes/chatRoutes.js";
+import sessionRoutes from "./routes/sessionRoutes.js";
 import cors from "cors";
 import { protectRoute } from "./middleware/protectRoute.js";
 import router from "./routes/chatRoutes.js";
+
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +27,9 @@ app.get("/video-calls", protectRoute, (req, res) => {
     .json({ message: "This is a protected route", user: req.user });
 });
 app.use("/api/chat", chatRoutes);
+app.use("/api/sessions", sessionRoutes);
+
+
 //making app ready for development and production both
 if (ENV.NODE_ENV === "production") {
   const __dirname = path.resolve();
@@ -33,6 +39,8 @@ if (ENV.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 }
+
+
 const startServer = async () => {
   try {
     await connectDB();
