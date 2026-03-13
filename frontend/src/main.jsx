@@ -26,6 +26,5 @@ createRoot(document.getElementById("root")).render(
         </ClerkProvider>
       </QueryClientProvider>
     </StrictMode>
-    ,
   </BrowserRouter>,
 );
