@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/RIOT7077/ProViva/issues"
   },
-  "homepage": "https://github.com/RIOT7077/ProViva#readme"
+  "homepage": "https://github.com/RIOT7077/ProViva#readme",
+  "dependencies": {
+    "lucide-react": "^0.577.0"
+  }
 }
